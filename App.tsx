@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Alert,
   Modal,
@@ -10,6 +11,8 @@ import {
 } from 'react-native';
 
 const App = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
     <View style={styles.baseContainer}>
       <View style={styles.headerContainer}>
@@ -23,7 +26,7 @@ const App = () => {
       <View>
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => Alert.alert('Pressed!')}
+          onPress={() => setIsModalVisible(true)}
           activeOpacity={0.7}
         >
           <Text style={styles.contentButtonText}>+</Text>
@@ -38,7 +41,7 @@ const App = () => {
         ></TextInput>
       </View> */}
 
-      <Modal transparent={true}>
+      <Modal transparent={true} visible={isModalVisible} animationType="slide">
         <View style={styles.modalBaseContainer}>
           <View style={styles.modalContainer}>
             <View>
@@ -46,8 +49,8 @@ const App = () => {
             </View>
 
             <View style={styles.modalContainerCloseButton}>
-              <TouchableOpacity>
-                <Text style={styles.modalContainerCloseButtonText}>X</Text>
+              <TouchableOpacity onPress={() => setIsModalVisible(false)}>
+                <Text style={styles.modalContainerCloseButtonText}>x</Text>
               </TouchableOpacity>
             </View>
 
@@ -146,6 +149,11 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: '#F9FBFF',
     borderRadius: 15,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: 'lightgray',
+    elevation: 30,
+    shadowColor: '#6B8DD6',
   },
 
   modalContainerText: {
@@ -157,12 +165,12 @@ const styles = StyleSheet.create({
   modalContainerCloseButton: {
     position: 'absolute',
     right: 9,
-    top: 3,
+    top: -3,
   },
 
   modalContainerCloseButtonText: {
-    color: 'red',
-    fontSize: 18,
+    color: 'gray',
+    fontSize: 27,
   },
 
   modalContainerInput: {
